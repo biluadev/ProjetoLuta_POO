@@ -42,3 +42,54 @@ class Sorcerer extends Character {
         this.maxLife = this.life;
     }
 }
+
+class LittleMonster extends Character {
+    constructor() {
+        super('Little Monster');
+        this.life = 40;
+        this.attack = 4;
+        this.defense = 4;
+        this.maxLife = this.life;
+    }
+}
+
+class BigMonster extends Character {
+    constructor() {
+        super('Big Monster');
+        this.life = 120;
+        this.attack = 16;
+        this.defense = 6;
+        this.maxLife = this.life;
+    }
+}
+
+class Stage {
+    constructor(fighter1, fighter2, fighter1Element, fighter2Element) {
+        this.fighter1 = fighter1;
+        this.fighter2 = fighter2;
+        this.fighter1Element = fighter1Element;
+        this.fighter2Element = fighter2Element;
+    }
+
+    start() {
+        this.update();
+
+        this.fighter1Element.querySelector('.attackButton').addEventListener('click', () => this.doAttack(this.fighter1, this.fighter2));
+        this.fighter2Element.querySelector('.attackButton').addEventListener('click', () => this.doAttack(this.fighter2, this.fighter1));
+    }
+
+    update() {
+        // Fighter 1
+        this.fighter1Element.querySelector('.name').innerHTML = `${this.fighter1.name} - ${this.fighter1.life} HP`;
+        let f1Percent = (this.fighter1.life / this.fighter1.maxLife) * 100;
+        this.fighter1Element.querySelector('.bar').style.width = `${f1Percent}%`;
+        // Fighter 2
+        this.fighter2Element.querySelector('.name').innerHTML = `${this.fighter2.name} - ${this.fighter2.life} HP`;
+        let f2Percent = (this.fighter2.life / this.fighter2.maxLife) * 100;
+        this.fighter2Element.querySelector('.bar').style.width = `${f2Percent}%`;
+    }
+
+    doAttack(attacking, attacked) {
+        console.log(`${attacking.name} está atacando ${attacked.name}`);
+    }
+}
